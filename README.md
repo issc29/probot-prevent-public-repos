@@ -31,7 +31,7 @@ enablePrivateToPublic: false
 privatizedIssueTitle: '[CRITICAL] Public Repositories are Disabled for this Org'
 
 # Issue Body when repo is privatized
- privatizedIssueBody: 'NOTE: Public Repos are disabled for this organization! Repository was automatically converted to a Private Repo. Please contact an admin to override.'
+privatizedIssueBody: 'NOTE: Public Repos are disabled for this organization! Repository was automatically converted to a Private Repo. Please contact an admin to override.'
 
 # Issue Title when monitor mode is enabled
 monitorIssueTitle: '[CRITICAL] Public Repository Created'
