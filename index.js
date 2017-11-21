@@ -1,12 +1,15 @@
+const PreventPublicRepos = require('./lib/PreventPublicRepos')
+
 module.exports = (robot) => {
   robot.on('repository.created', async context => {
     // Code was pushed to the repo, what should we do with it?
     //robot.log(context);
 
     const privatize_repo =  (process.env.PRIVATIZE_REPO && process.env.PRIVATIZE_REPO.toLowerCase() == "true") ? true : false
-    console.log('Privatize Repo: ' + privatize_repo);
+    robot.log('Privatize Repo: ' + privatize_repo);
 
-    const payload = context.payload;
+    return PreventPublicRepos.sync(context.github, context.repo(), context.payload);
+    /*
     if(!payload.repository.private) {
       robot.log("Repo Public")
 
@@ -29,6 +32,7 @@ module.exports = (robot) => {
         context.github.issues.create(params);
       }
     }
+    */
   });
 
   robot.on('repository.publicized', async context => {
