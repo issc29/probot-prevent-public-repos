@@ -6,6 +6,7 @@ A GitHub Probot App that monitors and prevents Public Repositories from being cr
 ## Features
 - Can convert newly created Public Repos to Private
 - Can also be enabled for repos that switch visibility from private to public
+  - Not enabled by default it is possible to restrict visibility changes to org owners [directly in GitHub](https://help.github.com/articles/repository-permission-levels-for-an-organization/#changing-the-visibility-of-repositories).
 - Will create an issue in the repo explaining the action
 - Monitor only mode will not change the repo visibility but will still create an issue
 - Can set configuration parameters by using YAML file set in a specific repo for the entire org
