@@ -40,10 +40,10 @@ monitorIssueTitle: '[CRITICAL] Public Repository Created'
 monitorIssueBody: 'Please note that this repository is publicly visible to the internet!'
 
 # Users/Groups that should be cc'ed on the issue. Should be users/groups separated by a space.
-ccList: '@issc29'
+# ccList: '@user123 @user456'
 
 # Repos to  exclude in detection. Should be a List of Strings.
-excludeRepos: ['repo1', 'repo2']
+# excludeRepos: ['repo1', 'repo2']
 ```
 
 When setting up this Probot App you can also set a number of Environment Variables
