@@ -2,7 +2,6 @@ const PreventPublicRepos = require('../lib/PreventPublicRepos')
 
 describe('PreventPublicRepos', () => {
   let github
-  let robot
 
   function configure (payload, yaml) {
     return new PreventPublicRepos(github, {owner: 'issc29-GHfB', repo: 'test-pro'}, payload, console, yaml)
