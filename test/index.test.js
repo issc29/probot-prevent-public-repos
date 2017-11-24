@@ -51,7 +51,7 @@ describe('plugin', () => {
       }
     })
 
-    it('analyzes repo', async () => {
+    it('does not analyze repo', async () => {
       await robot.receive(event)
       expect(analyze).not.toHaveBeenCalled()
     })
