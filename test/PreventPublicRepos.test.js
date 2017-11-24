@@ -5,18 +5,17 @@ describe('PreventPublicRepos', () => {
   let robot
 
   function configure (payload, yaml) {
-    return new PreventPublicRepos(github, {owner: 'issc29-GHfB', repo: 'test-pro'}, payload, console,  yaml)
+    return new PreventPublicRepos(github, {owner: 'issc29-GHfB', repo: 'test-pro'}, payload, console, yaml)
   }
 
   beforeEach(() => {
-
     github = {
       repos: {
         edit: jest.fn().mockImplementation(() => Promise.resolve()),
         getContent: jest.fn().mockImplementation(() => Promise.resolve())
       },
       issues: {
-        create: jest.fn().mockImplementation(() => Promise.resolve([])),
+        create: jest.fn().mockImplementation(() => Promise.resolve([]))
       }
     }
 
@@ -26,7 +25,7 @@ describe('PreventPublicRepos', () => {
         private: false
       },
       sender: {
-        login: "issc29"
+        login: 'issc29'
       }
     }
     payloadCreatedPublic = {
@@ -35,7 +34,7 @@ describe('PreventPublicRepos', () => {
         private: false
       },
       sender: {
-        login: "issc29"
+        login: 'issc29'
       }
     }
     payloadCreatedPrivate = {
@@ -44,22 +43,20 @@ describe('PreventPublicRepos', () => {
         private: true
       },
       sender: {
-        login: "issc29"
+        login: 'issc29'
       }
     }
-
   })
 
   describe('update', () => {
     beforeEach(() => {
-       spyExecutePrivatize = jest.spyOn(PreventPublicRepos.prototype, 'executePrivatize');
-       spyMonitorOnly = jest.spyOn(PreventPublicRepos.prototype, 'executeMonitorOnly');
+      spyExecutePrivatize = jest.spyOn(PreventPublicRepos.prototype, 'executePrivatize')
+      spyMonitorOnly = jest.spyOn(PreventPublicRepos.prototype, 'executeMonitorOnly')
     })
-    afterEach(function() {
+    afterEach(function () {
       spyExecutePrivatize.mockClear()
       spyMonitorOnly.mockClear()
-    });
-
+    })
 
     it('publicizied and privateToPublic Disabled', () => {
       const config = configure(payloadPublicizied, `
@@ -151,26 +148,26 @@ describe('PreventPublicRepos', () => {
       const config = configure(payloadCreatedPublic, `
         ccList: "@security"
       `)
-      var issueBody = config.formIssueBody("test123", "@security")
-      expect(issueBody).toEqual("test123\n\n/cc @issc29\n/cc @security");
+      var issueBody = config.formIssueBody('test123', '@security')
+      expect(issueBody).toEqual('test123\n\n/cc @issc29\n/cc @security')
     })
 
     it('formIssueBody with no ccList', () => {
       const config = configure(payloadCreatedPublic, ``)
-      var issueBody = config.formIssueBody("test123", "")
-      expect(issueBody).toEqual("test123\n\n/cc @issc29");
+      var issueBody = config.formIssueBody('test123', '')
+      expect(issueBody).toEqual('test123\n\n/cc @issc29')
     })
   })
 
   describe('createIssue', () => {
     it('creatIssue with Title and Body', () => {
       const config = configure(payloadCreatedPublic, ``)
-      config.createIssue("TitleTest", "BodyTest")
+      config.createIssue('TitleTest', 'BodyTest')
       expect(github.issues.create).toHaveBeenCalledWith({
-          owner: 'issc29-GHfB',
-          repo: 'test-pro',
-          title: 'TitleTest',
-          body: 'BodyTest'
+        owner: 'issc29-GHfB',
+        repo: 'test-pro',
+        title: 'TitleTest',
+        body: 'BodyTest'
       })
     })
   })
@@ -180,47 +177,47 @@ describe('PreventPublicRepos', () => {
       const config = configure(payloadCreatedPublic, ``)
       config.changeVisibility()
       expect(github.repos.edit).toHaveBeenCalledWith({
-          owner: 'issc29-GHfB',
-          repo: 'test-pro',
-          private: true,
-          name: 'test-pro'
+        owner: 'issc29-GHfB',
+        repo: 'test-pro',
+        private: true,
+        name: 'test-pro'
       })
     })
   })
 
   describe('executeMonitorOnly', () => {
     it('executeMonitorOnly', () => {
-      var spyFormIssueBody = jest.spyOn(PreventPublicRepos.prototype, 'formIssueBody');
-      var spyCreateIssue = jest.spyOn(PreventPublicRepos.prototype, 'createIssue');
+      var spyFormIssueBody = jest.spyOn(PreventPublicRepos.prototype, 'formIssueBody')
+      var spyCreateIssue = jest.spyOn(PreventPublicRepos.prototype, 'createIssue')
       const config = configure(payloadCreatedPublic, `
         monitorIssueBody: "MonitorIssueBodyText"
         ccList: "@security"
         `)
       config.executeMonitorOnly({
-        monitorIssueTitle: "MonitorIssueTitleText",
-        monitorIssueBody: "MonitorIssueBodyText",
-        ccList: "@security"
+        monitorIssueTitle: 'MonitorIssueTitleText',
+        monitorIssueBody: 'MonitorIssueBodyText',
+        ccList: '@security'
       })
-      expect(spyFormIssueBody).toHaveBeenCalledWith("MonitorIssueBodyText", "@security")
+      expect(spyFormIssueBody).toHaveBeenCalledWith('MonitorIssueBodyText', '@security')
       expect(spyCreateIssue).toHaveBeenCalled()
     })
   })
 
   describe('executePrivatize', () => {
     it('executePrivatize', () => {
-      var spyFormIssueBody = jest.spyOn(PreventPublicRepos.prototype, 'formIssueBody');
-      var spyCreateIssue = jest.spyOn(PreventPublicRepos.prototype, 'createIssue');
-      var spyChangeVisibility = jest.spyOn(PreventPublicRepos.prototype, 'changeVisibility');
+      var spyFormIssueBody = jest.spyOn(PreventPublicRepos.prototype, 'formIssueBody')
+      var spyCreateIssue = jest.spyOn(PreventPublicRepos.prototype, 'createIssue')
+      var spyChangeVisibility = jest.spyOn(PreventPublicRepos.prototype, 'changeVisibility')
       const config = configure(payloadCreatedPublic, `
         monitorIssueBody: "MonitorIssueBodyText"
         ccList: "@security"
         `)
       config.executePrivatize({
-        monitorIssueTitle: "MonitorIssueTitleText",
-        monitorIssueBody: "MonitorIssueBodyText",
-        ccList: "@security"
+        monitorIssueTitle: 'MonitorIssueTitleText',
+        monitorIssueBody: 'MonitorIssueBodyText',
+        ccList: '@security'
       })
-      expect(spyFormIssueBody).toHaveBeenCalledWith("MonitorIssueBodyText", "@security")
+      expect(spyFormIssueBody).toHaveBeenCalledWith('MonitorIssueBodyText', '@security')
       expect(spyCreateIssue).toHaveBeenCalled()
       expect(spyChangeVisibility).toHaveBeenCalled()
     })
