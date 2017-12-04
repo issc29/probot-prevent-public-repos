@@ -13,6 +13,12 @@ A GitHub Probot App that monitors and prevents Public Repositories from being cr
 - Can exclude certain repos
 - Can set a list of users/groups to cc on every issue created
 
+## Get Started
+
+1. [Configure the GitHub App](https://github.com/apps/prevent-public-repos)
+2. [Recommended] Create repo named `org-settings` and in it a file `.github/prevent-public-repos.yml` as described in the [How it Works](#How-it-Works) section to configure settings (and override defaults)
+3. It will then prevent public repos from being created
+
 ## How it Works
 
 By default when a new repository is created with Public visibility, an Issue will be created in the repository warning that it is Public to the internet [Monitor-Only mode is enabled].
@@ -49,7 +55,7 @@ monitorIssueBody: 'Please note that this repository is publicly visible to the i
 
 When setting up this Probot App you can also set a number of Environment Variables
 
-## Setup
+## Deployment
 
 See [docs/deploy.md](docs/deploy.md) if you would like to run your own instance of this app.
 
