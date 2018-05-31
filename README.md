@@ -16,7 +16,8 @@ A GitHub Probot App that monitors and prevents Public Repositories from being cr
 
 1. [Configure the GitHub App](https://github.com/apps/prevent-public-repos)
 2. [Recommended] Create repo named `org-settings` and in it a file `.github/prevent-public-repos.yml` as described in the [How it Works](#How-it-Works) section to configure settings (and override defaults)
-3. It will then prevent public repos from being created
+3. [Required] Ensure that the **[Repository visibility change](https://help.github.com/articles/repository-permission-levels-for-an-organization/#changing-the-visibility-of-repositories)** setting in **Member Privileges** is _checked_ to allow the App to control Repository visibility changes. 
+4. It will then prevent public repos from being created
 
 ## How it Works
 
