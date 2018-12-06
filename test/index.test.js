@@ -1,4 +1,4 @@
-const {createRobot} = require('probot')
+const { createRobot } = require('probot')
 const plugin = require('../index')
 
 describe('plugin', () => {
@@ -12,7 +12,7 @@ describe('plugin', () => {
 
     analyze = jest.fn()
 
-    plugin(robot, {}, {analyze})
+    plugin(robot, {}, { analyze })
   })
 
   describe('analyzes on created repo', () => {
