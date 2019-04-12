@@ -2,9 +2,12 @@ const PreventPublicRepos = require('../lib/PreventPublicRepos')
 
 describe('PreventPublicRepos', () => {
   let github
+  let payloadPublicized
+  let payloadCreatedPublic
+  let payloadCreatedPrivate
 
   function configure (payload, yaml) {
-    return new PreventPublicRepos(github, {owner: 'issc29-GHfB', repo: 'test-pro'}, payload, console, yaml)
+    return new PreventPublicRepos(github, { owner: 'issc29-GHfB', repo: 'test-pro' }, payload, console, yaml)
   }
 
   beforeEach(() => {
@@ -18,7 +21,7 @@ describe('PreventPublicRepos', () => {
       }
     }
 
-    payloadPublicizied = {
+    payloadPublicized = {
       action: 'publicized',
       repository: {
         private: false
@@ -48,6 +51,8 @@ describe('PreventPublicRepos', () => {
   })
 
   describe('update', () => {
+    let spyExecutePrivatize
+    let spyMonitorOnly
     beforeEach(() => {
       spyExecutePrivatize = jest.spyOn(PreventPublicRepos.prototype, 'executePrivatize')
       spyMonitorOnly = jest.spyOn(PreventPublicRepos.prototype, 'executeMonitorOnly')
@@ -58,7 +63,7 @@ describe('PreventPublicRepos', () => {
     })
 
     it('publicizied and privateToPublic Disabled', () => {
-      const config = configure(payloadPublicizied, `
+      const config = configure(payloadPublicized, `
         enablePrivateToPublic: false
       `)
       config.update()
@@ -67,7 +72,7 @@ describe('PreventPublicRepos', () => {
     })
 
     it('publicizied and privateToPublic Enabled', () => {
-      const config = configure(payloadPublicizied, `
+      const config = configure(payloadPublicized, `
         monitorOnly: true
         enablePrivateToPublic: true
       `)
