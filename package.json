@@ -1,7 +1,7 @@
 {
   "name": "prevent-public-repos",
   "version": "2.0.0",
-  "description": "",
+  "description": "Probot which prevents the creation of repositories within an org which are public.",
   "author": "Isaac Cohen <issc29@github.com>",
   "license": "ISC",
   "repository": "https://github.com/issc29/prevent-public-repos.git",
@@ -20,7 +20,7 @@
   },
   "engines": {
     "node": "^8.6.0",
-    "npm": "^5.5.1"
+    "npm": "^5.3.0"
   },
   "standard": {
     "env": [
