@@ -1,6 +1,16 @@
-sudo: false
 language: node_js
+
 node_js:
   - "8.6.0"
-notifications:
-  disabled: true
+  - "lts/dubnium"
+  - "node"
+
+sudo: false
+
+install:
+  - "npm install"
+
+os:
+  - "linux"
+  - "osx"
+  - "windows"
