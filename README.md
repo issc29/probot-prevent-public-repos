@@ -31,9 +31,6 @@ A `.github/prevent-public-repos.yml` file is recommended to override the [defaul
 # Turn on Monitor Mode. In this mode the repo visibility is not modified and only an Issue is created
 monitorOnly: true
 
-# Enables detection of repos that change visibility from private to public (not just newly created ones)
-enablePrivateToPublic: true
-
 # Issue Title when repo is privatized
 privatizedIssueTitle: '[CRITICAL] Public Repositories are Disabled for this Org'
 
