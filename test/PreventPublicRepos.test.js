@@ -62,63 +62,6 @@ describe('PreventPublicRepos', () => {
       spyMonitorOnly.mockClear()
     })
 
-    it('publicizied and privateToPublic Disabled', () => {
-      const config = configure(payloadPublicized, yaml.safeLoad(`
-        enablePrivateToPublic: false
-      `))
-      config.update()
-      expect(spyExecutePrivatize).not.toHaveBeenCalled()
-      expect(spyMonitorOnly).not.toHaveBeenCalled()
-    })
-
-    it('publicizied and privateToPublic Enabled', () => {
-      const config = configure(payloadPublicized, yaml.safeLoad(`
-        monitorOnly: true
-        enablePrivateToPublic: true
-      `))
-      config.update()
-      expect(spyExecutePrivatize).not.toHaveBeenCalled()
-      expect(spyMonitorOnly).toHaveBeenCalled()
-      expect(github.issues.create).toHaveBeenCalledWith({
-        owner: 'issc29-GHfB',
-        repo: 'test-pro',
-        title: '[CRITICAL] Public Repositories are visible to all users',
-        body: 'Please note that this repository is publicly visible to all users!\n\n/cc @issc29'
-      })
-    })
-
-    it('created and privateToPublic Diabled', () => {
-      const config = configure(payloadCreatedPublic, yaml.safeLoad(`
-        monitorOnly: true
-        enablePrivateToPublic: false
-      `))
-      config.update()
-      expect(spyExecutePrivatize).not.toHaveBeenCalled()
-      expect(spyMonitorOnly).toHaveBeenCalled()
-      expect(github.issues.create).toHaveBeenCalledWith({
-        owner: 'issc29-GHfB',
-        repo: 'test-pro',
-        title: '[CRITICAL] Public Repositories are visible to all users',
-        body: 'Please note that this repository is publicly visible to all users!\n\n/cc @issc29'
-      })
-    })
-
-    it('created and privateToPublic Enabled', () => {
-      const config = configure(payloadCreatedPublic, yaml.safeLoad(`
-        monitorOnly: true
-        enablePrivateToPublic: true
-      `))
-      config.update()
-      expect(spyExecutePrivatize).not.toHaveBeenCalled()
-      expect(spyMonitorOnly).toHaveBeenCalled()
-      expect(github.issues.create).toHaveBeenCalledWith({
-        owner: 'issc29-GHfB',
-        repo: 'test-pro',
-        title: '[CRITICAL] Public Repositories are visible to all users',
-        body: 'Please note that this repository is publicly visible to all users!\n\n/cc @issc29'
-      })
-    })
-
     it('created and is excluded Repo', () => {
       const config = configure(payloadCreatedPublic, yaml.safeLoad(`
         excludeRepos: ['test-pro1', 'test-pro']
