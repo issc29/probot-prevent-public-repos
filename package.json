@@ -7,7 +7,7 @@
   "repository": "https://github.com/issc29/prevent-public-repos.git",
   "scripts": {
     "lint": "npx standard",
-    "start": "probot run ./index.js",
+    "start": "probot run ./app.js",
     "test": "jest && npm run lint"
   },
   "dependencies": {
