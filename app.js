@@ -1,10 +1,9 @@
-const PreventPublicRepos = require('./lib/PreventPublicRepos')
 
 /**
  * @param {import('probot').Probot} app
  */
 
-module.exports = (app) => {
+module.exports = (app, _, PreventPublicRepos = require('./lib/PreventPublicRepos')) => {
   app.on('repository.created', async context => {
     return PreventPublicRepos.analyze(context.octokit, context.repo(), context.payload, app.log)
       .catch((error) => {

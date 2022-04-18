@@ -1,4 +1,4 @@
-const myProbotApp = require('..')
+const myProbotApp = require('../app')
 const { Probot, ProbotOctokit } = require('probot')
 
 describe('plugin', () => {

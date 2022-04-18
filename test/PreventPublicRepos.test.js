@@ -14,7 +14,7 @@ describe('PreventPublicRepos', () => {
   beforeEach(() => {
     github = {
       repos: {
-        edit: jest.fn().mockImplementation(() => Promise.resolve())
+        update: jest.fn().mockImplementation(() => Promise.resolve())
       },
       issues: {
         create: jest.fn().mockImplementation(() => Promise.resolve([]))
@@ -193,11 +193,10 @@ describe('PreventPublicRepos', () => {
         title: '[CRITICAL] Public Repositories are Disabled for this Org',
         body: 'NOTE: Public Repos are disabled for this organization! Repository was automatically converted to a Private Repo. Please contact an admin to override.\n\n/cc @issc29'
       })
-      expect(github.repos.edit).toHaveBeenCalledWith({
+      expect(github.repos.update).toHaveBeenCalledWith({
         owner: 'issc29-GHfB',
         repo: 'test-pro',
-        private: true,
-        name: 'test-pro'
+        private: true
       })
     })
   })
@@ -235,11 +234,10 @@ describe('PreventPublicRepos', () => {
     it('changeVisibility of repo', () => {
       const config = configure(payloadCreatedPublic, yaml.safeLoad(``))
       config.changeVisibility()
-      expect(github.repos.edit).toHaveBeenCalledWith({
+      expect(github.repos.update).toHaveBeenCalledWith({
         owner: 'issc29-GHfB',
         repo: 'test-pro',
-        private: true,
-        name: 'test-pro'
+        private: true
       })
     })
   })
