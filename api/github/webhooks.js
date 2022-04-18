@@ -1,4 +1,4 @@
-const { createNodeMiddleware, createProbot } = require("probot")
+const { createNodeMiddleware, createProbot } = require('probot')
 
 const app = require('../../app')
 
