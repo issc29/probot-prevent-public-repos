@@ -11,7 +11,7 @@
     "test": "jest && npm run lint"
   },
   "dependencies": {
-    "probot": "^12.2.2"
+    "probot": "^12.3.0"
   },
   "devDependencies": {
     "jest": "^27.5",
